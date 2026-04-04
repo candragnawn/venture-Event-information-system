@@ -8,25 +8,25 @@ import { Prisma, Event } from '../../generated/prisma';
 export class EventService {
   constructor(private prisma: PrismaService) {}
 
-  async createEvent(data: Prisma.EventCreateInput): Promise<Event> {
+  async create(data: Prisma.EventCreateInput): Promise<Event> {
     return this.prisma.event.create({
       data,
     });
   }
 
-  // findAll() {
-  //   return `This action returns all event`;
-  // }
+  findAll() {
+    return `This action returns all event`;
+  }
 
-  // findOne(id: number) {
-  //   return `This action returns a #${id} event`;
-  // }
+  findOne(id: number) {
+    return `This action returns a #${id} event`;
+  }
 
-  // update(id: number, updateEventDto: UpdateEventDto) {
-  //   return `This action updates a #${id} event`;
-  // }
+  update(id: number, updateEventDto: UpdateEventDto) {
+    return `This action updates a #${id} event`;
+  }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} event`;
-  // }
+  remove(id: number) {
+    return `This action removes a #${id} event`;
+  }
 }
