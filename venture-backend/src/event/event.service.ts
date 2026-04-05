@@ -8,12 +8,37 @@ import { Prisma, Event } from '../../generated/prisma';
 export class EventService {
   constructor(private prisma: PrismaService) {}
 
-  async create(data: Prisma.EventCreateInput): Promise<Event> {
+  async create(createEventDto: CreateEventDto): Promise<Event> {
+    const {
+      organizer_id,
+      title,
+      description,
+      category,
+      location,
+      Event_date,
+      Event_time,
+      price,
+      quota,
+      image_url,
+    } = createEventDto;
     return this.prisma.event.create({
-      data,
+      data: {
+        title,
+        description,
+        category,
+        location,
+        Event_date,
+        Event_time,
+        price,
+        quota,
+        image_url,
+        // 3. Mapping relasi ke organizer (User)
+        organizer: {
+          connect: { id: organizer_id },
+        },
+      },
     });
   }
-
   findAll() {
     return `This action returns all event`;
   }
