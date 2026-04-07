@@ -3,10 +3,8 @@ import {
   IsNotEmpty,
   IsNumber,
   IsEnum,
-  IsOptional,
-  IsDataURI,
-  isNotEmpty,
   IsEmail,
+  IsArray,
 } from 'class-validator';
 import { Role } from 'generated/prisma';
 
@@ -23,9 +21,10 @@ export class CreateUserDto {
   role!: Role;
   create_at!: string;
   update_at!: string;
-  @IsString()
-  Event!: string;
-  ticket!: string[];
+  @IsArray()
+  @IsString({ each: true })
+  Event!: String[];
+  ticket!: String[];
   order!: string[];
   payment!: string[];
   reviews!: string[];

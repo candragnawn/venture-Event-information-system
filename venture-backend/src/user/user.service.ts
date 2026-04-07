@@ -4,6 +4,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { Prisma, User } from '../../generated/prisma';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { Role } from '../../generated/prisma';
+import { Review } from 'src/reviews/entities/review.entity';
 
 @Injectable()
 export class UserService {
@@ -34,12 +35,37 @@ export class UserService {
         phone,
         create_at,
         update_at,
-        Event.tem,
-        ticket,
-        order,
-        payment,
-        reviews,
-        favourite,
+        Event: Event
+          ? {
+              connect: Event.map((id) => ({ id: Number(id) })),
+            }
+          : undefined,
+        ticket: ticket
+          ? {
+              connect: ticket.map((id) => ({ ticket_id: String(id) })),
+            }
+          : undefined,
+        order: order
+          ? {
+              connect: order.map((id) => ({ id: Number(id) })),
+            }
+          : undefined,
+
+        Reviews: reviews
+          ? {
+              connect: reviews.map((id) => ({ id: id })),
+            }
+          : undefined,
+        payment: payment
+          ? {
+              connect: payment.map((id) => ({ id: Number(id) })),
+            }
+          : undefined,
+        favourite: favourite
+          ? {
+              connect: favourite.map((id) => ({ id: Number(id) })),
+            }
+          : undefined,
       },
     });
   }

@@ -27,9 +27,9 @@ export class EventService {
         description,
         category,
         location,
-        Event_date,
+        Event_date: new Date(Event_date),
         Event_time,
-        price,
+        price: new Prisma.Decimal(price),
         quota,
         image_url,
         // 3. Mapping relasi ke organizer (User)
