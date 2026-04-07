@@ -40,7 +40,7 @@ export class EventService {
     });
   }
   findAll() {
-    return `This action returns all event`;
+    return this.prisma.event.findMany();
   }
 
   findOne(id: number) {

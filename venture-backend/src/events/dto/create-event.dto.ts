@@ -4,7 +4,6 @@ import {
   IsNotEmpty,
   IsNumber,
   IsEnum,
-  IsOptional,
   IsDataURI,
 } from 'class-validator';
 
