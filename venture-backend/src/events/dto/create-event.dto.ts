@@ -3,8 +3,9 @@ import {
   IsString,
   IsNotEmpty,
   IsNumber,
-  IsEnum,
   IsDataURI,
+  IsEnum,
+  Min,
   IsDateString,
 } from 'class-validator';
 
@@ -15,6 +16,7 @@ export class CreateEventDto {
   @IsNotEmpty()
   description!: string;
   @IsNotEmpty()
+  @IsDataURI()
   image_url!: string;
 
   @IsEnum(Category)
@@ -32,6 +34,7 @@ export class CreateEventDto {
   @IsNotEmpty()
   price!: number;
   @IsNotEmpty()
+  @Min(1)
   quota!: number;
   @IsNotEmpty()
   organizer_id!: number;

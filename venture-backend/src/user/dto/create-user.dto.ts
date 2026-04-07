@@ -1,32 +1,26 @@
 import {
   IsString,
   IsNotEmpty,
-  IsNumber,
   IsEnum,
   IsEmail,
-  IsArray,
+  IsStrongPassword,
+  IsOptional,
 } from 'class-validator';
 import { Role } from 'generated/prisma';
 
 export class CreateUserDto {
-  @IsNotEmpty()
-  @IsNumber()
-  id!: number;
   @IsString()
   @IsEmail()
+  @IsNotEmpty()
   email!: string;
+  @IsNotEmpty()
+  @IsStrongPassword()
+  password!: string;
+  @IsNotEmpty()
   name!: string;
+  @IsNotEmpty()
   phone!: string;
   @IsEnum(Role)
+  @IsOptional()
   role!: Role;
-  create_at!: string;
-  update_at!: string;
-  @IsArray()
-  @IsString({ each: true })
-  Event!: String[];
-  ticket!: String[];
-  order!: string[];
-  payment!: string[];
-  reviews!: string[];
-  favourite!: string[];
 }
