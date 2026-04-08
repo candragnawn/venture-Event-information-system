@@ -11,13 +11,14 @@ export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    const { email, name, role, phone } = createUserDto;
+    const { email, name, role, phone, password } = createUserDto;
     return this.prisma.user.create({
       data: {
         email,
         name,
-        role,
         phone,
+        password,
+        role
       },
     });
   }
