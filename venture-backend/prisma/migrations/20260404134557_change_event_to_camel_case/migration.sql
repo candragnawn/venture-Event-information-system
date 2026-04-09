@@ -5,9 +5,9 @@
   - You are about to drop the column `event_id` on the `Reviews` table. All the data in the column will be lost.
   - You are about to drop the column `event_id` on the `Ticket` table. All the data in the column will be lost.
   - You are about to drop the `event` table. If the table is not empty, all the data it contains will be lost.
-  - Added the required column `Event_id` to the `Favourite` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `Event_id` to the `Reviews` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `Event_id` to the `Ticket` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `event_id` to the `Favourite` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `event_id` to the `Reviews` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `event_id` to the `Ticket` table without a default value. This is not possible if the table is not empty.
 
 */
 -- DropForeignKey
@@ -24,15 +24,15 @@ ALTER TABLE "event" DROP CONSTRAINT "event_organizer_id_fkey";
 
 -- AlterTable
 ALTER TABLE "Favourite" DROP COLUMN "event_id",
-ADD COLUMN     "Event_id" INTEGER NOT NULL;
+ADD COLUMN     "event_id" INTEGER NOT NULL;
 
 -- AlterTable
 ALTER TABLE "Reviews" DROP COLUMN "event_id",
-ADD COLUMN     "Event_id" INTEGER NOT NULL;
+ADD COLUMN     "event_id" INTEGER NOT NULL;
 
 -- AlterTable
 ALTER TABLE "Ticket" DROP COLUMN "event_id",
-ADD COLUMN     "Event_id" INTEGER NOT NULL;
+ADD COLUMN     "event_id" INTEGER NOT NULL;
 
 -- DropTable
 DROP TABLE "event";
@@ -59,10 +59,10 @@ CREATE TABLE "Event" (
 ALTER TABLE "Event" ADD CONSTRAINT "Event_organizer_id_fkey" FOREIGN KEY ("organizer_id") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_Event_id_fkey" FOREIGN KEY ("Event_id") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_event_id_fkey" FOREIGN KEY ("event_id") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Reviews" ADD CONSTRAINT "Reviews_Event_id_fkey" FOREIGN KEY ("Event_id") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Reviews" ADD CONSTRAINT "Reviews_event_id_fkey" FOREIGN KEY ("event_id") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Favourite" ADD CONSTRAINT "Favourite_Event_id_fkey" FOREIGN KEY ("Event_id") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Favourite" ADD CONSTRAINT "Favourite_event_id_fkey" FOREIGN KEY ("event_id") REFERENCES "Event"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

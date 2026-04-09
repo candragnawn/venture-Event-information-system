@@ -9,7 +9,7 @@ export class CreateTicketDto {
 
   @IsNumber()
   @IsNotEmpty()
-  Event_id!: number;
+  event_id!: number;
 
   @IsNumber()
   @IsNotEmpty()

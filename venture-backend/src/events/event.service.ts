@@ -2,21 +2,21 @@ import { Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma, Event } from '@prisma/client'
+import { Prisma, event } from '@prisma/client'
 
 @Injectable()
 export class EventService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createEventDto: CreateEventDto): Promise<Event> {
+  async create(createEventDto: CreateEventDto): Promise<event> {
     const {
       organizer_id,
       title,
       description,
       category,
       location,
-      Event_date,
-      Event_time,
+      event_date,
+      event_time,
       price,
       quota,
       image_url,
@@ -27,8 +27,8 @@ export class EventService {
         description,
         category,
         location,
-        Event_date: new Date(Event_date),
-        Event_time,
+        event_date: new Date(event_date),
+        event_time,
         price: new Prisma.Decimal(price),
         quota,
         image_url,

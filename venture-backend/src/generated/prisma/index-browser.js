@@ -137,8 +137,8 @@ exports.Prisma.EventScalarFieldEnum = {
   description: 'description',
   category: 'category',
   location: 'location',
-  Event_date: 'Event_date',
-  Event_time: 'Event_time',
+  event_date: 'event_date',
+  event_time: 'event_time',
   price: 'price',
   quota: 'quota',
   image_url: 'image_url',
@@ -152,7 +152,7 @@ exports.Prisma.TicketScalarFieldEnum = {
   status: 'status',
   purchase_date: 'purchase_date',
   price: 'price',
-  Event_id: 'Event_id',
+  event_id: 'event_id',
   user_id: 'user_id'
 };
 
@@ -177,7 +177,7 @@ exports.Prisma.PaymentsScalarFieldEnum = {
 exports.Prisma.ReviewsScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
-  Event_id: 'Event_id',
+  event_id: 'event_id',
   rating: 'rating',
   comment: 'comment'
 };
@@ -185,7 +185,7 @@ exports.Prisma.ReviewsScalarFieldEnum = {
 exports.Prisma.FavouriteScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
-  Event_id: 'Event_id'
+  event_id: 'event_id'
 };
 
 exports.Prisma.SortOrder = {
@@ -244,7 +244,7 @@ exports.payment_stats = exports.$Enums.payment_stats = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Event: 'Event',
+  event: 'event',
   Ticket: 'Ticket',
   Orders: 'Orders',
   Payments: 'Payments',

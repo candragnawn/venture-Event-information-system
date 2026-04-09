@@ -26,7 +26,7 @@ model User {
   phone String
   created_at DateTime @default(now()) 
   update_at DateTime @updatedAt 
-  Event Event[]
+  event event[]
   ticket Ticket[]
   order Orders[]
   payment Payments[]
@@ -48,14 +48,14 @@ enum Category {
   OTHER
 }
 
-model Event {
+model event {
   id    Int      @id @default(autoincrement())
   title       String
   description String   @db.Text
   category    Category
   location    String
-  Event_date  DateTime
-  Event_time  String   
+  event_date  DateTime
+  event_time  String   
   price       Decimal  @default(0)
   quota       Int
   image_url   String?
@@ -80,8 +80,8 @@ model Ticket {
   status        TicketStatus @default(VALID)
   purchase_date DateTime @default(now())
   price       Decimal  @default(0)
-  Event_id      Int
-  Event         Event    @relation(fields: [Event_id], references: [id])
+  event_id      Int
+  event         event    @relation(fields: [event_id], references: [id])
   user_id       Int
   user          User     @relation(fields: [user_id], references: [id])
 }
@@ -133,8 +133,8 @@ model Reviews {
   id Int @id @default(autoincrement())
   user_id Int
   user User @relation(fields: [user_id], references: [id])
-  Event_id Int
-  Event Event @relation(fields: [Event_id], references: [id])
+  event_id Int
+  Event event @relation(fields: [event_id], references: [id])
   rating Int
   comment String
 }
@@ -142,6 +142,6 @@ model Favourite {
   id Int @id @default(autoincrement())
   user_id Int
   user User @relation(fields: [user_id], references: [id])
-  Event_id Int
-  Event Event @relation(fields: [Event_id], references: [id])
+  event_id Int
+  event event @relation(fields: [event_id], references: [id])
 }
