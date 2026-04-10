@@ -5,7 +5,6 @@ export class CreateTicketDto {
   @IsString()
   @IsNotEmpty()
   qr_code!: string;
-  ticket_id?: string;
 
   @IsNumber()
   @IsNotEmpty()

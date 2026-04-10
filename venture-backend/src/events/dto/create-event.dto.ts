@@ -26,9 +26,9 @@ export class CreateEventDto {
   location!: string;
   @IsDateString()
   @IsNotEmpty()
-  event_date!: Date;
+  Event_date!: Date;
   @IsNotEmpty()
-  event_time!: string;
+  Event_time!: string;
 
   @IsNumber()
   @IsNotEmpty()

@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "paths": {
-      "@prisma/client": ["src/generated/prisma"]
     },
     "types": ["jest"],
     "module": "nodenext",

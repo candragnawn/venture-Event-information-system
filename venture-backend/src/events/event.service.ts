@@ -2,43 +2,44 @@ import { Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma, event } from '@prisma/client'
+import { Prisma, Event } from '../generated/prisma'; // <-- fix import
 
 @Injectable()
 export class EventService {
   constructor(private prisma: PrismaService) {}
 
-  async create(createEventDto: CreateEventDto): Promise<event> {
+  async create(createEventDto: CreateEventDto): Promise<Event> {
     const {
       organizer_id,
       title,
       description,
       category,
       location,
-      event_date,
-      event_time,
+      Event_date,
+      Event_time,
       price,
       quota,
       image_url,
     } = createEventDto;
+
     return this.prisma.event.create({
       data: {
         title,
         description,
         category,
         location,
-        event_date: new Date(event_date),
-        event_time,
+        event_date: new Date(Event_date),
+        event_time: Event_time,
         price: new Prisma.Decimal(price),
         quota,
         image_url,
-        // 3. Mapping relasi ke organizer (User)
         organizer: {
           connect: { id: organizer_id },
         },
       },
     });
   }
+
   findAll() {
     return this.prisma.event.findMany();
   }

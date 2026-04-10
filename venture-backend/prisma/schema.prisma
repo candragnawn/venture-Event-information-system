@@ -7,7 +7,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  moduleFormat  = "cjs"
   output = "../src/generated/prisma"
 
 }
@@ -26,7 +25,7 @@ model User {
   phone String
   created_at DateTime @default(now()) 
   update_at DateTime @updatedAt 
-  event event[]
+  event Event[]
   ticket Ticket[]
   order Orders[]
   payment Payments[]
@@ -48,7 +47,7 @@ enum Category {
   OTHER
 }
 
-model event {
+model Event {
   id    Int      @id @default(autoincrement())
   title       String
   description String   @db.Text
@@ -81,7 +80,7 @@ model Ticket {
   purchase_date DateTime @default(now())
   price       Decimal  @default(0)
   event_id      Int
-  event         event    @relation(fields: [event_id], references: [id])
+  event         Event    @relation(fields: [event_id], references: [id])
   user_id       Int
   user          User     @relation(fields: [user_id], references: [id])
 }
@@ -134,7 +133,7 @@ model Reviews {
   user_id Int
   user User @relation(fields: [user_id], references: [id])
   event_id Int
-  Event event @relation(fields: [event_id], references: [id])
+  event Event @relation(fields: [event_id], references: [id])
   rating Int
   comment String
 }
@@ -143,5 +142,5 @@ model Favourite {
   user_id Int
   user User @relation(fields: [user_id], references: [id])
   event_id Int
-  event event @relation(fields: [event_id], references: [id])
+  event Event @relation(fields: [event_id], references: [id])
 }

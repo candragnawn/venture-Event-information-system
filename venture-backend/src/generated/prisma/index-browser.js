@@ -244,7 +244,7 @@ exports.payment_stats = exports.$Enums.payment_stats = {
 
 exports.Prisma.ModelName = {
   User: 'User',
-  event: 'event',
+  Event: 'Event',
   Ticket: 'Ticket',
   Orders: 'Orders',
   Payments: 'Payments',
