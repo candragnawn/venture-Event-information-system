@@ -1,36 +1,98 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
-
 generator client {
   provider = "prisma-client-js"
-  output = "../src/generated/prisma"
-
+  engineType = "library"
 }
 
 datasource db {
   provider = "postgresql"
-
 }
 
 model User {
-  id    Int     @default(autoincrement()) @id
-  email String  @unique
-  password String
-  name  String
-  role  Role
-  phone String
-  created_at DateTime @default(now()) 
-  update_at DateTime @updatedAt 
-  event Event[]
-  ticket Ticket[]
-  order Orders[]
-  payment Payments[]
-  reviews Reviews[]
-  favourite Favourite[]
+  id         Int         @id @default(autoincrement())
+  email      String      @unique
+  name       String
+  role       Role
+  phone      String
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
+  password   String
+  event      Event[]
+  favourite  Favourite[]
+  order      Orders[]
+  payment    Payments[]
+  reviews    Reviews[]
+  ticket     Ticket[]
+}
+
+model Event {
+  id           Int         @id @default(autoincrement())
+  title        String
+  description  String
+  category     Category
+  location     String
+  Event_date   DateTime
+  Event_time   String
+  price        Decimal     @default(0)
+  quota        Int
+  image_url    String?
+  organizer_id Int
+  updated_at   DateTime    @updatedAt
+  organizer    User        @relation(fields: [organizer_id], references: [id])
+  favourite    Favourite[]
+  review       Reviews[]
+  ticket       Ticket[]
+}
+
+model Ticket {
+  ticket_id     String       @id @default(uuid())
+  qr_code       String       @unique
+  status        TicketStatus @default(VALID)
+  purchase_date DateTime     @default(now())
+  price         Decimal      @default(0)
+  user_id       Int
+  event_id      Int
+  event         Event        @relation(fields: [event_id], references: [id])
+  user          User         @relation(fields: [user_id], references: [id])
+}
+
+model Orders {
+  id          Int          @id @default(autoincrement())
+  user_id     Int
+  total_price Decimal      @default(0)
+  status      OrderStatus
+  created_at  DateTime     @default(now())
+  user        User         @relation(fields: [user_id], references: [id])
+  payment     Payments[]
+}
+
+model Payments {
+  id               Int           @id @default(autoincrement())
+  user_id          Int
+  order_id         Int
+  amount           Int
+  payment_method   PaymentMethod
+  payment_status   payment_stats
+  transaction_time DateTime      @default(now())
+  order            Orders        @relation(fields: [order_id], references: [id])
+  user             User          @relation(fields: [user_id], references: [id])
+}
+
+model Reviews {
+  id       Int    @id @default(autoincrement())
+  user_id  Int
+  rating   Int
+  comment  String
+  event_id Int
+  event    Event  @relation(fields: [event_id], references: [id])
+  user     User   @relation(fields: [user_id], references: [id])
+}
+
+model Favourite {
+  id       Int   @id @default(autoincrement())
+  user_id  Int
+  event_id Int
+  event    Event @relation(fields: [event_id], references: [id])
+  user     User  @relation(fields: [user_id], references: [id])
 }
 
 enum Role {
@@ -47,59 +109,16 @@ enum Category {
   OTHER
 }
 
-model Event {
-  id    Int      @id @default(autoincrement())
-  title       String
-  description String   @db.Text
-  category    Category
-  location    String
-  event_date  DateTime
-  event_time  String   
-  price       Decimal  @default(0)
-  quota       Int
-  image_url   String?
-  organizer_id Int
-  organizer    User     @relation(fields: [organizer_id], references: [id])
-  updated_at  DateTime @updatedAt
-  ticket Ticket[]
-  review Reviews[]
-  favourite Favourite[]
-
-}
- enum TicketStatus {
+enum TicketStatus {
   VALID
   USED
   EXPIRED
 }
 
-
-model Ticket {
-  ticket_id     String   @id @default(uuid())
-  qr_code       String   @unique
-  status        TicketStatus @default(VALID)
-  purchase_date DateTime @default(now())
-  price       Decimal  @default(0)
-  event_id      Int
-  event         Event    @relation(fields: [event_id], references: [id])
-  user_id       Int
-  user          User     @relation(fields: [user_id], references: [id])
-}
-
-enum ordertStatus { 
+enum OrderStatus {
   VALID
   USED
   EXPIRED
-}
-
-model Orders {
-  id Int @id @default(autoincrement())
-  user_id Int
-  user User @relation(fields: [user_id], references: [id])
-  total_price Decimal  @default(0)
-  status ordertStatus
-  created_at DateTime @default(now())
-  payment Payments[]
-
 }
 
 enum payment_stats {
@@ -107,7 +126,6 @@ enum payment_stats {
   success
   failed
   canceled
-
 }
 
 enum PaymentMethod {
@@ -115,32 +133,4 @@ enum PaymentMethod {
   CREDIT_CARD
   E_WALLET
   CASH
-}
-model Payments {
-  id Int @id @default(autoincrement())
-  user_id Int
-  user User @relation(fields: [user_id], references: [id])
-  order_id  Int
-  order Orders @relation(fields: [order_id], references: [id])
-  amount Int
-  payment_method PaymentMethod
-  payment_status payment_stats
-  transaction_time DateTime @default(now())
-}
-
-model Reviews {
-  id Int @id @default(autoincrement())
-  user_id Int
-  user User @relation(fields: [user_id], references: [id])
-  event_id Int
-  event Event @relation(fields: [event_id], references: [id])
-  rating Int
-  comment String
-}
-model Favourite {
-  id Int @id @default(autoincrement())
-  user_id Int
-  user User @relation(fields: [user_id], references: [id])
-  event_id Int
-  event Event @relation(fields: [event_id], references: [id])
 }

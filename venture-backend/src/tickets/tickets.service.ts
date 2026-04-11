@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateTicketDto } from './dto/create-ticket.dto';
 import { UpdateTicketDto } from './dto/update-ticket.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Ticket } from '../../generated/prisma'; // <-- fix import
+import { Ticket } from '@prisma/client'; // <-- fix import
 
 @Injectable()
 export class TicketsService {
@@ -15,7 +15,7 @@ export class TicketsService {
       data: {
         qr_code,
         price,
-        event: {             
+        event: {
           connect: { id: event_id },
         },
         user: {

@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "paths": {
-    },
-    "types": ["jest"],
+    "paths": {},
+    "types": ["jest", "node"],
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "resolvePackageJsonExports": true,

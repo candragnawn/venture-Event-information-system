@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { Prisma, Event } from '../generated/prisma'; // <-- fix import
+import { Prisma, Event } from '@prisma/client'; // <-- fix import
 
 @Injectable()
 export class EventService {
@@ -28,8 +28,8 @@ export class EventService {
         description,
         category,
         location,
-        event_date: new Date(Event_date),
-        event_time: Event_time,
+        Event_date: new Date(Event_date),
+        Event_time: Event_time,
         price: new Prisma.Decimal(price),
         quota,
         image_url,

@@ -123,12 +123,12 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
 exports.Prisma.UserScalarFieldEnum = {
   id: 'id',
   email: 'email',
-  password: 'password',
   name: 'name',
   role: 'role',
   phone: 'phone',
   created_at: 'created_at',
-  update_at: 'update_at'
+  update_at: 'update_at',
+  password: 'password'
 };
 
 exports.Prisma.EventScalarFieldEnum = {
@@ -137,8 +137,8 @@ exports.Prisma.EventScalarFieldEnum = {
   description: 'description',
   category: 'category',
   location: 'location',
-  event_date: 'event_date',
-  event_time: 'event_time',
+  Event_date: 'Event_date',
+  Event_time: 'Event_time',
   price: 'price',
   quota: 'quota',
   image_url: 'image_url',
@@ -152,8 +152,8 @@ exports.Prisma.TicketScalarFieldEnum = {
   status: 'status',
   purchase_date: 'purchase_date',
   price: 'price',
-  event_id: 'event_id',
-  user_id: 'user_id'
+  user_id: 'user_id',
+  event_id: 'event_id'
 };
 
 exports.Prisma.OrdersScalarFieldEnum = {
@@ -177,9 +177,9 @@ exports.Prisma.PaymentsScalarFieldEnum = {
 exports.Prisma.ReviewsScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
-  event_id: 'event_id',
   rating: 'rating',
-  comment: 'comment'
+  comment: 'comment',
+  event_id: 'event_id'
 };
 
 exports.Prisma.FavouriteScalarFieldEnum = {
