@@ -11,18 +11,23 @@ export class TicketsService {
   async create(createTicketDto: CreateTicketDto): Promise<Ticket> {
     const { qr_code, price, event_id, user_id } = createTicketDto;
 
-    return this.prisma.ticket.create({
-      data: {
-        qr_code,
-        price,
-        event: {
-          connect: { id: event_id },
+    try {
+      return this.prisma.ticket.create({
+        data: {
+          qr_code,
+          price,
+          event: {
+            connect: { id: event_id },
+          },
+          user: {
+            connect: { id: user_id },
+          },
         },
-        user: {
-          connect: { id: user_id },
-        },
-      },
-    });
+      });
+    } catch (error) {
+      console.error('Error creating ticket:', error);
+      throw error;
+    }
   }
 
   async findAll() {
