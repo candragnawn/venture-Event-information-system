@@ -9,9 +9,20 @@ import { OrdersModule } from './orders/orders.module';
 import { PaymentsModule } from './payments/payments.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { FavouriteModule } from './favourite/favourite.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [PrismaModule, EventModule, UserModule, TicketsModule, OrdersModule, PaymentsModule, ReviewsModule, FavouriteModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule,
+    EventModule,
+    UserModule,
+    TicketsModule,
+    OrdersModule,
+    PaymentsModule,
+    ReviewsModule,
+    FavouriteModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
